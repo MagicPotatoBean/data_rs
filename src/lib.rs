@@ -151,65 +151,65 @@ mod CSV {
         InvalidFormatError,
         FileNotFound,
     }
-}
-#[cfg(test)]
-mod tests {
-    use super::CSV::*;
-    #[test]
-    fn header_headers() {
-        let result = HeaderCSV::from_file("src/csvs/headered.csv")
-            .unwrap()
-            .header;
-        assert_eq!(
-            result,
-            vec!["Date", "Open", "High", "Low", "Close", "Volume"]
-        );
-    }
-    #[test]
-    fn header_data() {
-        let result = HeaderCSV::from_file("src/csvs/headered.csv").unwrap().data;
-        assert_eq!(
-            result[0],
-            vec![
-                "11/14/2023",
-                "371.01",
-                "371.95",
-                "367.35",
-                "370.27",
-                "27,683,859"
-            ]
-        );
-    }
-    #[test]
-    fn headerless_data() {
-        let result = HeaderlessCSV::from_file("src/csvs/headerless.csv")
-            .unwrap()
-            .data;
-        assert_eq!(
-            result[0],
-            vec![
-                "11/14/2023",
-                "371.01",
-                "371.95",
-                "367.35",
-                "370.27",
-                "27,683,859"
-            ]
-        );
-    }
-    #[test]
-    fn split_on_commas_test() {
-        let x = r#"11/14/2023,"371.01","371.95","367.35","370.27","27,683,859""#;
-        assert_eq!(
-            vec![
-                "11/14/2023",
-                "371.01",
-                "371.95",
-                "367.35",
-                "370.27",
-                "27,683,859"
-            ],
-            split_on_commas(x).unwrap()
-        )
+    #[cfg(test)]
+    mod csv_tests {
+        use super::*;
+        #[test]
+        fn header_headers() {
+            let result = HeaderCSV::from_file("src/csvs/headered.csv")
+                .unwrap()
+                .header;
+            assert_eq!(
+                result,
+                vec!["Date", "Open", "High", "Low", "Close", "Volume"]
+            );
+        }
+        #[test]
+        fn header_data() {
+            let result = HeaderCSV::from_file("src/csvs/headered.csv").unwrap().data;
+            assert_eq!(
+                result[0],
+                vec![
+                    "11/14/2023",
+                    "371.01",
+                    "371.95",
+                    "367.35",
+                    "370.27",
+                    "27,683,859"
+                ]
+            );
+        }
+        #[test]
+        fn headerless_data() {
+            let result = HeaderlessCSV::from_file("src/csvs/headerless.csv")
+                .unwrap()
+                .data;
+            assert_eq!(
+                result[0],
+                vec![
+                    "11/14/2023",
+                    "371.01",
+                    "371.95",
+                    "367.35",
+                    "370.27",
+                    "27,683,859"
+                ]
+            );
+        }
+        #[test]
+        fn split_on_commas_test() {
+            let x = r#"11/14/2023,"371.01","371.95","367.35","370.27","27,683,859""#;
+            assert_eq!(
+                vec![
+                    "11/14/2023",
+                    "371.01",
+                    "371.95",
+                    "367.35",
+                    "370.27",
+                    "27,683,859"
+                ],
+                split_on_commas(x).unwrap()
+            )
+        }
     }
 }
